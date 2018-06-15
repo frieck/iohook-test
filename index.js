@@ -2,6 +2,7 @@ const ioHook = require('iohook');
 const usb = require('usb');
 const logiled = require('logiled');
 
+
 ioHook.start(false);
 
 const list = usb.getDeviceList()
@@ -12,45 +13,53 @@ list.forEach(device => {
     }
 });
 
-
-
-
+ioHook.registerShortcut([29, 11], () => {
+    require('active-window').getActiveWindow(callback);
+})
 
 
 // always initialize the library first...
-logiled.init();
+// logiled.init();
 
 // note: you should wait a few milliseconds after initializing
 
 // store the current lighting for restoring it later...
-logiled.saveCurrentLighting();
+// logiled.saveCurrentLighting();
 
 // set color of all keys to black (LEDs off)
-logiled.setLighting({
-    redPercentage:   0,
-    greenPercentage: 0,
-    bluePercentage:  0
-});
+// logiled.setLighting({
+//     redPercentage:   0,
+//     greenPercentage: 0,
+//     bluePercentage:  0
+// });
 
 // ... wait a moment to see the effect
 
 // set color of ESC key to blue
-logiled.setLightingForKeyWithKeyName({
-    keyName: logiled.KeyName.ESC, 
-    redPercentage: 0,
-    greenPercentage: 0,
-    bluePercentage: 100
-});
+// logiled.setLightingForKeyWithKeyName({
+//     keyName: logiled.KeyName.ESC, 
+//     redPercentage: 0,
+//     greenPercentage: 0,
+//     bluePercentage: 100
+// });
 
 // ... wait a moment to see the effect
 
 // restore the lighting to the state it was saved earlier...
-logiled.restoreLighting();
+// logiled.restoreLighting();
 
 // finally free the ressources again...
-logiled.shutdown();
+// logiled.shutdown();
 
-console.log('Done.');
+// console.log('Done.');
 
 
+
+callback = function(window){
+    try {
+      console.log("Active Window: " + window.app + ': ' + window.title, window.path);
+    }catch(err) {
+        console.log(err);
+    } 
+}
 
